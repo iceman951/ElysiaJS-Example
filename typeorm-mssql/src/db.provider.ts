@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 
 export const DS1: DataSource = new DataSource({
-  type: "mssql",
+  type: "mssql", // ถ้าเป็น postgresql เปลี่ยนเป็น pg (bun add pg ด้วย)
   host: "myhost.example.com",
   port: 1433,
   username: "sa",

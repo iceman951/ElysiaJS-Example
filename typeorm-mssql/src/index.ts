@@ -4,6 +4,7 @@ import { DS1 } from "./db.provider";
 const app = new Elysia()
   .get("/", () => "Hello Elysia")
   .get("/division/:division_code", async ({ params }) => {
+    // **** query แบบที 1 กรณี 1 time api call of single query ****
     const sql = `SELECT TOP 10 * FROM Division WHERE DIVISION_CODE LIKE @0`;
     const results: any[] = await DS1.query(sql, [
       params.division_code,
@@ -14,7 +15,7 @@ const app = new Elysia()
       division_code: t.Number(),
     })
   })
-  // Add a new division record with transaction management
+  // **** query แบบที 2 กรณี 1 time api call of multiple query แบบ rollback หากมี fail query ได้ โดยใช้ transaction management ****
   .post("/division", async ({ body }) => {
     let queryRunner = DS1.createQueryRunner();
     await queryRunner.connect();
